@@ -3,7 +3,7 @@ package pairmatching.view;
 import camp.nextstep.edu.missionutils.Console;
 
 public class InputView {
-    public String promptUserForChoice() {
+    public String inputFunction() {
         System.out.println("기능을 선택하세요.");
         System.out.println("1. 페어 매칭");
         System.out.println("2. 페어 조회");
