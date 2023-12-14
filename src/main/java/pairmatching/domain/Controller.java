@@ -1,6 +1,7 @@
 package pairmatching.domain;
 
 import java.util.Objects;
+import pairmatching.model.PairMatching;
 import pairmatching.view.InputView;
 import pairmatching.view.OutputView;
 
@@ -14,16 +15,16 @@ public class Controller {
     }
 
     public void pairMatchingLogic() {
-        inputFuction();
+        String function = inputFuction();
         System.out.println();
         outputView.courseAndMission();
-        String courseAndLevelAndMission = inputView.inputCourseAndLevelAndMission();
     }
 
-    private void inputFuction() {
+    private String inputFuction() {
         try {
             String function = inputView.inputFunction();
             validateInputFuction(function);
+            return function;
         } catch (IllegalArgumentException e) {
             System.out.println();
         }
@@ -34,5 +35,20 @@ public class Controller {
                 && !Objects.equals(function, "Q")) {
             throw new IllegalArgumentException();
         }
+    }
+
+    private PairMatching inputCourseAndLevelAndMission() {
+        try {
+            String courseAndLevelAndMission = inputView.inputCourseAndLevelAndMission();
+            String cleanData = removeBlank(courseAndLevelAndMission);
+            String[] data = cleanData.split(",");
+            return new PairMatching(data[0], data[1], data[2]);
+        } catch (IllegalArgumentException e) {
+            System.out.println();
+        }
+    }
+
+    private String removeBlank(String inputData) {
+        return inputData.replaceAll(" ", "");
     }
 }

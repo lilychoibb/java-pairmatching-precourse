@@ -18,4 +18,8 @@ public enum Level {
         this.name = name;
         this.mission = mission;
     }
+
+    public List<String> getMission() {
+        return mission;
+    }
 }
