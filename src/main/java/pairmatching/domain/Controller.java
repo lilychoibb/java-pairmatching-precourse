@@ -1,5 +1,6 @@
 package pairmatching.domain;
 
+import java.util.List;
 import java.util.Objects;
 import pairmatching.model.PairMatching;
 import pairmatching.view.InputView;
@@ -18,7 +19,10 @@ public class Controller {
         String function = inputFuction();
         System.out.println();
         outputView.courseAndMission();
-        inputCourseAndLevelAndMission();
+        PairMatching pairMatching = inputCourseAndLevelAndMission();
+        List<List<String>> matchPairs = pairMatching.matchPairs();
+        System.out.println();
+        outputView.pairMatchingResult(matchPairs);
     }
 
     private String inputFuction() {

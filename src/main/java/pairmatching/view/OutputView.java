@@ -1,5 +1,8 @@
 package pairmatching.view;
 
+import java.util.List;
+import java.util.function.DoubleToIntFunction;
+
 public class OutputView {
     public void courseAndMission() {
         System.out.println("#############################################");
@@ -11,5 +14,12 @@ public class OutputView {
         System.out.println("  - 레벨4: 성능개선 | 배포");
         System.out.println("  - 레벨5:");
         System.out.println("############################################");
+    }
+
+    public void pairMatchingResult(List<List<String>> matchPairs) {
+        System.out.println("페어 매칭 결과입니다.");
+        for (List<String> crews : matchPairs) {
+            System.out.println(String.join(" : ", crews));
+        }
     }
 }

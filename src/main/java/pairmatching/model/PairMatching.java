@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.PrimitiveIterator;
 import org.omg.CORBA.PRIVATE_MEMBER;
 import pairmatching.domain.Course;
@@ -62,10 +63,22 @@ public class PairMatching {
         }
     }
 
-    private List<List<String>> matchPairs() {
+    public List<List<String>> matchPairs() {
         try {
+//            TODO : 백엔드, 프론트엔드 구분
+            File file;
+            String filePath = "";
 
-            File file = new File("/Users/lily/java-pairmatching-precourse/src/main/resources/backend-crew.md");
+            if (Objects.equals(course, Course.BACKEND.getName())) {
+                filePath = "/Users/lily/java-pairmatching-precourse/src/main/resources/backend-crew.md";
+            }
+
+            if (Objects.equals(course, Course.FRONTEND.getName())) {
+                filePath = "/Users/lily/java-pairmatching-precourse/src/main/resources/frontend-crew.md";
+            }
+
+            file = new File(filePath);
+
             FileReader filereader = new FileReader(file);
             BufferedReader bufReader = new BufferedReader(filereader);
             String line = "";
@@ -80,7 +93,7 @@ public class PairMatching {
                 List<String> matchingCrew = new ArrayList<>();
 
                 if (shuffledCrew.get(i + 1) == null) {
-                    result.get(result.size()-1).add(shuffledCrew.get(i));
+                    result.get(result.size() - 1).add(shuffledCrew.get(i));
                     break;
                 }
 
