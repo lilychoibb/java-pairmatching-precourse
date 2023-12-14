@@ -12,6 +12,7 @@ import pairmatching.view.OutputView;
 public class Controller {
     private final InputView inputView;
     private final OutputView outputView;
+    private List<PairMatching> matchFinished = new ArrayList<>();
 
     public Controller(InputView inputView, OutputView outputView) {
         this.inputView = inputView;
@@ -22,10 +23,13 @@ public class Controller {
         String function = "";
         while (!Objects.equals(function, "Q")) {
             function = inputFuction();
-            System.out.println();
+
+            if (Objects.equals(function, "Q")) {
+                break;
+            }
+
             outputView.courseAndMission();
 
-            List<PairMatching> matchFinished = new ArrayList<>();
             startPairMatching(function, matchFinished);
         }
     }
@@ -48,6 +52,7 @@ public class Controller {
                     System.out.println();
                     List<List<String>> matchPairs = pairMatching.matchPairs();
                     outputView.pairMatchingResult(matchPairs);
+                    pairMatchingLogic();
                 }
 
                 if (Objects.equals(reMatch, "아니오")) {
@@ -59,6 +64,21 @@ public class Controller {
             List<List<String>> matchPairs = pairMatching.matchPairs();
             outputView.pairMatchingResult(matchPairs);
         }
+
+        if (Objects.equals(function, "2")) {
+            matchFinished.add(pairMatching);
+            if (checkMatchDuplicate(matchFinished)) {
+                List<List<String>> matchPairs = pairMatching.getMatchingResult();
+                outputView.pairMatchingResult(matchPairs);
+            }
+            matchFinished.remove(pairMatching);
+        }
+
+        if (Objects.equals(function, "3")) {
+            outputView.printInitializationMessage();
+            matchFinished.clear();
+        }
+
     }
 
     public boolean checkMatchDuplicate(List<PairMatching> matchFinished) {
