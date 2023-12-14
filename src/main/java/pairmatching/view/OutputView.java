@@ -22,4 +22,8 @@ public class OutputView {
             System.out.println(String.join(" : ", crews));
         }
     }
+
+    public void printInitializationMessage() {
+        System.out.println("초기화 되었습니다.");
+    }
 }
