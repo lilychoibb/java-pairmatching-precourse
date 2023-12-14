@@ -12,10 +12,10 @@ public class Controller {
         this.outputView = outputView;
     }
 
-    public void pairmatchingLogic() {
+    public void pairMatchingLogic() {
         String function = inputView.inputFunction();
         System.out.println();
         outputView.courseAndMission();
-
+        String courseAndLevelAndMission = inputView.inputCourseAndLevelAndMission();
     }
 }
