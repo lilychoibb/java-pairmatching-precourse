@@ -1,5 +1,13 @@
 package pairmatching.model;
 
+import camp.nextstep.edu.missionutils.Randoms;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.PrimitiveIterator;
 import org.omg.CORBA.PRIVATE_MEMBER;
 import pairmatching.domain.Course;
@@ -18,6 +26,8 @@ public class PairMatching {
         this.course = course;
         this.level = level;
         this.mission = mission;
+
+        matchPairs();
     }
 
     private void validateCourse(String course) {
@@ -52,4 +62,38 @@ public class PairMatching {
         }
     }
 
+    private List<List<String>> matchPairs() {
+        try {
+
+            File file = new File("/Users/lily/java-pairmatching-precourse/src/main/resources/backend-crew.md");
+            FileReader filereader = new FileReader(file);
+            BufferedReader bufReader = new BufferedReader(filereader);
+            String line = "";
+            List<String> crew = new ArrayList<>();
+            while ((line = bufReader.readLine()) != null) {
+                crew.add(line);
+            }
+            List<String> shuffledCrew = Randoms.shuffle(crew);
+            List<List<String>> result = new ArrayList<>();
+
+            for (int i = 0; i < shuffledCrew.size(); i += 2) {
+                List<String> matchingCrew = new ArrayList<>();
+
+                if (shuffledCrew.get(i + 1) == null) {
+                    result.get(result.size()-1).add(shuffledCrew.get(i));
+                    break;
+                }
+
+                matchingCrew.add(shuffledCrew.get(i));
+                matchingCrew.add(shuffledCrew.get(i + 1));
+                result.add(matchingCrew);
+            }
+
+            bufReader.close();
+            return result;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }
