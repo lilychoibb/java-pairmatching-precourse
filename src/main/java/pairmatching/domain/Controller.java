@@ -25,6 +25,24 @@ public class Controller {
         outputView.pairMatchingResult(matchPairs);
     }
 
+    private String inputReMatch() {
+        try {
+            String reMatch = inputView.inputReMatching();
+            validateReMatch(reMatch);
+            return reMatch;
+        } catch (IllegalArgumentException e) {
+            System.out.println(ErrorMessage.INVALID_INPUT.getErrorMessage());
+            return inputReMatch();
+        }
+    }
+
+    private void validateReMatch(String reMatch) {
+        if (!Objects.equals(reMatch, "네") && !Objects.equals(reMatch, "아니오")) {
+            throw new IllegalArgumentException();
+        }
+    }
+
+
     private String inputFuction() {
         try {
             String function = inputView.inputFunction();
