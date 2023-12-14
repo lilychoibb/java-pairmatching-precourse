@@ -21,7 +21,7 @@ public class PairMatching {
     }
 
     private void validateCourse(String course) {
-        if (!Course.BACKEND.name().equals(course) && !Course.FRONTEND.name().equals(course)) {
+        if (!Course.BACKEND.getName().equals(course) && !Course.FRONTEND.getName().equals(course)) {
             throw new IllegalArgumentException();
         }
     }
@@ -29,7 +29,7 @@ public class PairMatching {
     private void validateLevel(String level) {
         boolean levelData = false;
         for (Level levelName : Level.values()) {
-            if (levelName.name().equals(level)) {
+            if (levelName.getName().equals(level)) {
                 levelData = true;
                 break;
             }

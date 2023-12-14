@@ -18,6 +18,7 @@ public class Controller {
         String function = inputFuction();
         System.out.println();
         outputView.courseAndMission();
+        inputCourseAndLevelAndMission();
     }
 
     private String inputFuction() {
@@ -26,7 +27,8 @@ public class Controller {
             validateInputFuction(function);
             return function;
         } catch (IllegalArgumentException e) {
-            System.out.println();
+            System.out.println(ErrorMessage.INVALID_INPUT.getErrorMessage());
+            return inputFuction();
         }
     }
 
@@ -44,7 +46,8 @@ public class Controller {
             String[] data = cleanData.split(",");
             return new PairMatching(data[0], data[1], data[2]);
         } catch (IllegalArgumentException e) {
-            System.out.println();
+            System.out.println(ErrorMessage.INVALID_INPUT.getErrorMessage());
+            return inputCourseAndLevelAndMission();
         }
     }
 

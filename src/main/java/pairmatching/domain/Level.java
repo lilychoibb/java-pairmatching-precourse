@@ -11,12 +11,16 @@ public enum Level {
     LEVEL4("레벨4", Arrays.asList("성능개선", "배포")),
     LEVEL5("레벨5", Collections.emptyList());
 
-    private String name;
-    private List<String> mission;
+    private final String name;
+    private final List<String> mission;
 
     Level(String name, List<String> mission) {
         this.name = name;
         this.mission = mission;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public List<String> getMission() {
