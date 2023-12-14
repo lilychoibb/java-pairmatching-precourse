@@ -1,7 +1,10 @@
 package pairmatching.domain;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import pairmatching.model.PairMatching;
 import pairmatching.view.InputView;
 import pairmatching.view.OutputView;
@@ -16,13 +19,48 @@ public class Controller {
     }
 
     public void pairMatchingLogic() {
-        String function = inputFuction();
-        System.out.println();
-        outputView.courseAndMission();
+        String function = "";
+        while (!Objects.equals(function, "Q")) {
+            function = inputFuction();
+            System.out.println();
+            outputView.courseAndMission();
+
+            List<PairMatching> matchFinished = new ArrayList<>();
+            startPairMatching(function, matchFinished);
+        }
+    }
+
+    private void startPairMatching(String function, List<PairMatching> matchFinished) {
         PairMatching pairMatching = inputCourseAndLevelAndMission();
-        List<List<String>> matchPairs = pairMatching.matchPairs();
-        System.out.println();
-        outputView.pairMatchingResult(matchPairs);
+
+        serviceLogic(function, pairMatching, matchFinished);
+    }
+
+    private void serviceLogic(String function, PairMatching pairMatching, List<PairMatching> matchFinished) {
+        if (Objects.equals(function, "1")) {
+            // 중복 여부를 확인하기 전에 matchFinished 리스트에 pairMatching을 추가
+            matchFinished.add(pairMatching);
+
+            if (checkMatchDuplicate(matchFinished)) {
+                matchFinished.remove(pairMatching);
+                String reMatch = inputReMatch();
+                if (Objects.equals(reMatch, "네")) {
+                    System.out.println();
+                    List<List<String>> matchPairs = pairMatching.matchPairs();
+                    outputView.pairMatchingResult(matchPairs);
+                }
+
+                if (Objects.equals(reMatch, "아니오")) {
+                    startPairMatching(function, matchFinished);
+                }
+            }
+
+            System.out.println();
+            List<List<String>> matchPairs = pairMatching.matchPairs();
+            outputView.pairMatchingResult(matchPairs);
+        }
+    }
+
     public boolean checkMatchDuplicate(List<PairMatching> matchFinished) {
         Set<PairMatching> uniqueMatches = new HashSet<>();
 
