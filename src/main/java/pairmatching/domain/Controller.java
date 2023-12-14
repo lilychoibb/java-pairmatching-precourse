@@ -23,6 +23,17 @@ public class Controller {
         List<List<String>> matchPairs = pairMatching.matchPairs();
         System.out.println();
         outputView.pairMatchingResult(matchPairs);
+    public boolean checkMatchDuplicate(List<PairMatching> matchFinished) {
+        Set<PairMatching> uniqueMatches = new HashSet<>();
+
+        for (PairMatching match : matchFinished) {
+            if (!uniqueMatches.add(match)) {
+                return true;
+            }
+        }
+
+        // 중복이 없음
+        return false;
     }
 
     private String inputReMatch() {
