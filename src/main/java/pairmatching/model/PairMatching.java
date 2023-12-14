@@ -3,14 +3,11 @@ package pairmatching.model;
 import camp.nextstep.edu.missionutils.Randoms;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.PrimitiveIterator;
-import org.omg.CORBA.PRIVATE_MEMBER;
 import pairmatching.domain.Course;
 import pairmatching.domain.Level;
 
@@ -18,6 +15,7 @@ public class PairMatching {
     private String course;
     private String level;
     private String mission;
+    private List<List<String>> matchingResult;
 
     public PairMatching(String course, String level, String mission) {
         validateCourse(course);
@@ -27,8 +25,6 @@ public class PairMatching {
         this.course = course;
         this.level = level;
         this.mission = mission;
-
-        matchPairs();
     }
 
     private void validateCourse(String course) {
@@ -63,9 +59,9 @@ public class PairMatching {
         }
     }
 
+
     public List<List<String>> matchPairs() {
         try {
-//            TODO : 백엔드, 프론트엔드 구분
             File file;
             String filePath = "";
 
@@ -103,10 +99,14 @@ public class PairMatching {
             }
 
             bufReader.close();
+            matchingResult = result;
             return result;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
 
+    public List<List<String>> getMatchingResult() {
+        return matchingResult;
     }
 }

@@ -3,6 +3,7 @@ package pairmatching.domain;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public enum Level {
     LEVEL1("레벨1", Arrays.asList("자동차경주", "로또", "숫자야구게임")),
@@ -26,4 +27,5 @@ public enum Level {
     public List<String> getMission() {
         return mission;
     }
+
 }

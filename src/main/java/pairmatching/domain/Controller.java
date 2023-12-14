@@ -71,6 +71,11 @@ public class Controller {
                 List<List<String>> matchPairs = pairMatching.getMatchingResult();
                 outputView.pairMatchingResult(matchPairs);
             }
+
+            if (!checkMatchDuplicate(matchFinished)) {
+                System.out.println(ErrorMessage.MATCHING_HISTORY_NOT_FOUND.getErrorMessage());
+            }
+
             matchFinished.remove(pairMatching);
         }
 
